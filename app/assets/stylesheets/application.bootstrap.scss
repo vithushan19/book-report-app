@@ -1,2 +1,20 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+.primary-color {
+  background-color: #ffffff;
+}
+
+.secondary-color {
+  color: #293241;
+}
+
+.custom-button.btn {
+  background-color: #293241;
+  color: #fff;
+  border: none;
+}
+
+.question-input.form-control {
+  margin-bottom: 16px;
+}
