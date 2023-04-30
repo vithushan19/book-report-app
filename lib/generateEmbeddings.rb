@@ -22,7 +22,7 @@ while start < input_text.length
 end
 
 # Fetch embeddings for each chunk
-embeddings = chunks[0,1].map { |chunk| client.embeddings(
+embeddings = chunks.map { |chunk| client.embeddings(
     parameters: {
         model: "text-embedding-ada-002",
         input: chunk
