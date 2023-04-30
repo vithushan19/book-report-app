@@ -1,4 +1,4 @@
-
+require 'json'
 
 # Read the contents of the input file
 input_file_path = 'output.txt'
@@ -14,10 +14,11 @@ conn = Faraday.new(
 )
 
 response = conn.post("#{SUPBASE_URL}") do |req|
-  req.body = {content: 'chunky bacon', embedding: [1.0, 1.5, -1.8]}.to_json
+  req.body = "#{JSON.parse(input_text).to_json}"
 end
 
 # Output the response status and body
 puts response.status
-puts response.body
+puts response
+
 puts "Embeddings saved to database"
