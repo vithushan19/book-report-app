@@ -18,7 +18,6 @@ export default () => {
     })  
       .then((response) => response.json())
       .then((data) => {
-        alert(JSON.stringify(data))
         setAnswer(data.data.trim())
         setIsLoading(false)
       });
