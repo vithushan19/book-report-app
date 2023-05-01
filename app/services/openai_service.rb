@@ -1,7 +1,9 @@
 require 'openai'
+require 'dotenv/load'
 
 class OpenaiService
     # Set up the OpenAI API key
+    api_key = ENV['OPENAI_API_KEY']    
 
     @@client = OpenAI::Client.new(access_token: api_key)
 
