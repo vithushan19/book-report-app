@@ -47,9 +47,9 @@ gem "bootsnap", require: false
 
 gem "ruby-openai"
 
-gem 'supabase'
+gem 'pdf-reader'
 
-gem 'faraday'
+gem 'dotenv-rails' # To manage environment variables
 
 # Use Sass to process CSS
 # gem "sassc-rails"
