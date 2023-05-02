@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default () => {
-  const [inputValue, setInputValue] = useState("Who are the Montagues?");
+  const [inputValue, setInputValue] = useState("");
   const [answer, setAnswer] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedBook, setSelectedBook] = useState("");
-  const [recentQuestions, setRecentQuestions] = useState([]);
+  const [selectedBook, setSelectedBook] = useState("Romeo and Juliet");
+  const [recentQuestionsData, setRecentQuestionsData] = useState([]);
 
-  const handleChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedBook(selectedValue);
-    console.log(selectedValue);
-    fetch(`/homepage/get_recent_questions?book=${selectedValue}`, {
+  // Fetch recent book questions on load and whenever the selected book changes
+  useEffect(() => {
+    fetch(`/homepage/get_recent_questions?book=${selectedBook}`, {
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        setRecentQuestions(data.data.map((question) => question.question));
+        setRecentQuestionsData(data.data);
+        setInputValue("")
+        setAnswer("")
       });
+  }, [selectedBook])
+
+  const handleChange = (event) => {
+    const bookTitle = event.target.value;
+    setSelectedBook(bookTitle);
   };
 
   const handleSubmit = (event) => {
@@ -34,14 +39,20 @@ export default () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAnswer(data.data.trim());
-        setRecentQuestions(prev => {
-          if (prev.includes(inputValue)) {
-            return prev;
-          } else {
-            return [inputValue, ...prev];
-          }
-        });
+        const answer = data.data.trim()
+        setAnswer(answer);
+
+        // Only update the recent questions, if we found an answer
+        if (answer != "No answer found") {
+          setRecentQuestionsData(prev => {
+            if (prev.includes(inputValue)) {
+              return prev;
+            } else {
+              return [{question: inputValue, answer}, ...prev];
+            }
+          });
+        }
+        
         setIsLoading(false);
       });
   };
@@ -52,11 +63,16 @@ export default () => {
   ];
 
   const handleRecentQuestionClick = (question) => {
-    setInputValue(question);
+    setInputValue(question.question);
+    setAnswer(question.answer)
   };
 
+  const handleDeleteRecentQuestionClick = (question) => {
+    setRecentQuestionsData(prev => prev.filter(q => q.question != question.question))
+  }
+
   return (
-    <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
+    <div className="vw-100 primary-color d-flex align-items-center justify-content-center">
       <div className="jumbotron jumbotron-fluid bg-transparent">
         <div className="container secondary-color">
           <h1 className="display-4">Book Report</h1>
@@ -79,11 +95,16 @@ export default () => {
 
             <div className="mt-4">
               <p className="fs-3">Most Recently Asked Questions</p>
-              {selectedBook ? <ul>
-                {recentQuestions.map((question, i) => (
-                  <li onClick={() => handleRecentQuestionClick(question)} key={i}>{question}</li>
+              {selectedBook ? <div>
+                {recentQuestionsData.map((question, i) => (
+                  <div key={i}>
+                    <div className="recent-question-row">
+                      <p className="recent-question-text" onClick={() => handleRecentQuestionClick(question)}>{question.question}</p>
+                      <div onClick={() => handleDeleteRecentQuestionClick(question)} className="btn btn-danger custom-btn-danger">Delete</div>
+                    </div>
+                  </div>
                 ))}
-              </ul> : <p>Select a book to see the most recently asked questions</p>}
+              </div> : <p>Select a book to see the most recently asked questions</p>}
             </div>
 
             <hr />

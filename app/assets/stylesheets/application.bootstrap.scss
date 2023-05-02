@@ -18,3 +18,23 @@
 .question-input.form-control {
   margin-bottom: 16px;
 }
+
+:hover.recent-question-text {
+  background-color: bisque;
+  cursor: pointer;
+}
+
+.recent-question-row {
+  display: flex;
+  height: 64px;
+  justify-content: space-between;
+}
+
+.recent-question-text {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-btn-danger {
+  height: 40px;
+}
