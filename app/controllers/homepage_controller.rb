@@ -31,16 +31,15 @@ class HomepageController < ApplicationController
     cosine_similarity
   end
 
-  def search
-    question = params[:question]
-    query_embeddings = OpenaiService.fetch_embedding_for_question(question)[:embedding] # Fetch embeddings using OpenAI service
+  def getAnswerFromOpenAI(question)
+    question_embedding = OpenaiService.fetch_embedding_for_question(question)[:embedding] # Fetch embeddings using OpenAI service
     book_sections = BookSection.select('*')
 
     # Calculate the cosine similarity between the query and each book section
     book_sections_with_similarities = book_sections.map { |book_section|
       book_section_hash = book_section.attributes
 
-      similarity = cosine_similarity(book_section.embeddings, query_embeddings)
+      similarity = cosine_similarity(book_section.embeddings, question_embedding)
       book_section_hash["similarity"] = similarity
       book_section_hash
     }
@@ -64,13 +63,38 @@ class HomepageController < ApplicationController
     
     If you can not find the answer in the relevant section from the book then say 'I don't know the answer given the information from the book'"
 
-    prompt_completion = OpenaiService.fetch_completion_for_prompt(prompt) # Fetch completion using OpenAI service
+    answer = OpenaiService.fetch_completion_for_prompt(prompt) # Fetch completion using OpenAI service
 
     puts "prompt"
     puts prompt
-    puts "prompt_completion"
-    puts prompt_completion
-    render json: { message: "Success", data: prompt_completion}
+    puts "answer"
+    puts answer
+    return answer
+  end
+
+  def search
+    question = params[:question]
+    
+    # Use the find_by method to search for the question-answer pair by question
+    pair = QuestionAnswerPair.find_by(question: question)
+
+    # Check if a matching pair was found
+    if pair
+      # Output the question and answer
+      puts "Answer found in cache for the specified question."
+
+      puts "Question: #{pair.question}"
+      puts "Answer: #{pair.answer}"
+      answer = pair.answer
+    else
+      # Output a message if no matching pair was found
+      puts "No answer found in cache for the specified question."
+      answer = getAnswerFromOpenAI(question)
+      QuestionAnswerPair.create(question: question, answer: answer)
+    end
+    
+    render json: { message: "Success", data: answer}
+
   end
 
 end
