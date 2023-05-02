@@ -99,7 +99,7 @@ class OpenaiService
             parameters: {
                 model: "text-davinci-003",
                 prompt: prompt,
-                max_tokens: 50
+                max_tokens: 100
             })
         response["choices"][0]["text"].strip
     end
