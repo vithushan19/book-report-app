@@ -12,7 +12,7 @@ export default () => {
     const selectedValue = event.target.value;
     setSelectedBook(selectedValue);
     console.log(selectedValue);
-    fetch(`/homepage/getRecentQuestions?book=${selectedValue}`, {
+    fetch(`/homepage/get_recent_questions?book=${selectedValue}`, {
       headers: {
         "Content-Type": "application/json",
       },

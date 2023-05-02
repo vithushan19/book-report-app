@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   root 'homepage#index'
   post "/homepage/search", to: "homepage#search"
-  get "/homepage/getRecentQuestions", to: "homepage#getRecentQuestions"
+  get "/homepage/get_recent_questions", to: "homepage#get_recent_questions"
 end

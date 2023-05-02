@@ -35,10 +35,11 @@ class HomepageController < ApplicationController
     else
       # Output a message if no matching pair was found
       puts "No answer found in cache for the specified question."
-      answer = getAnswerFromOpenAI(book_title, question)
+      answer = OpenaiService::get_answer_from_open_ai(book_title, question)
 
       if answer == nil || answer == "" || answer == " " 
         puts "No answer found in OpenAI for the specified question. Try asking a different question."
+        answer = "Answer not found"
       else
         BookQuestion.create!(book_title: book_title, question: question.downcase.strip, answer: answer)
       end
