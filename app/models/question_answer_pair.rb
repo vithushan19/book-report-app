@@ -1,0 +1,2 @@
+class QuestionAnswerPair < ApplicationRecord
+end
