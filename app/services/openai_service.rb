@@ -37,16 +37,25 @@ class OpenaiService
             { "title": book_title, "content": section, "embeddings": embedding["data"][0]["embedding"]}
          }
 
-
         return {data: result}
     end
 
     def self.get_answer_from_open_ai(title, question)
+        prompt = OpenaiService::create_prompt(title, question)
+        answer = OpenaiService::fetch_completion_for_prompt(prompt) # Fetch completion using OpenAI service
+
+        return answer
+    end
+    
+    private
+
+    def self.create_prompt(book_title, question)
+
         # Fetch embedding vector for question
         question_embedding = OpenaiService::fetch_embedding_for_question(question)[:embedding]
         
         # Get all book sections from the database for the current book 
-        book_sections = BookSection.where(title: title)
+        book_sections = BookSection.where(title: book_title)
 
         # Calculate the cosine similarity between the question's embedding vector and each book section's embedding vector
         book_sections_with_similarities = book_sections.map { |book_section|
@@ -62,23 +71,19 @@ class OpenaiService
 
         # Create a prompt using the top 3 most semantically relevant sections
         prompt = 
-        "Here is a question about the book #{title} and some relevant sections. Provide a detailed answer to the question. Please keep your answers to three sentences maximum, and speak in complete sentences. Stop speaking once your point is made. If you do not know the answer then says 'I don't know the answer given the information from the book'
+        "Here is a question about the book #{book_title} and some relevant sections. Provide a detailed answer to the question. Please keep your answers to three sentences maximum, and speak in complete sentences. Stop speaking once your point is made. If you do not know the answer then says 'I don't know the answer given the information from the book'
         \n
-        Context that may be useful, pulled from #{title}:
+        Context that may be useful, pulled from #{book_title}:
         \n
         #{sections_sorted_by_semantic_relevance[0]["content"]} 
         #{sections_sorted_by_semantic_relevance[1]["content"]} 
-        #{sections_sorted_by_semantic_relevance[3]["content"]} 
+        #{sections_sorted_by_semantic_relevance[2]["content"]} 
         \n
         Question: #{question} 
         \n"
 
-        answer = OpenaiService::fetch_completion_for_prompt(prompt) # Fetch completion using OpenAI service
-
-        return answer
+        return prompt
     end
-    
-    private
 
     def self.fetch_embedding_for_question(text)
         puts "Calling OpenAI API to get embeddings for question: #{text}"
