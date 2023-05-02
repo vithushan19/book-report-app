@@ -1,10 +1,13 @@
 require 'json'
 
-# Read the contents of the input file
+# Arguments
+book_title = "Palace of Illusions"
 input_file_path = 'book-input.txt'
+
+# Read the contents of the input file
 input_text = File.read(input_file_path)
 
-result = OpenaiService.fetch_embeddings_for_book("Palace of Illusions", input_text)
+result = OpenaiService::fetch_embeddings_for_book(book_title, input_text)
 
 # Write embeddings to file
 File.open('output.txt', 'w') do |file|
