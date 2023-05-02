@@ -25,9 +25,10 @@
 
 - run `bin/dev` in your terminal to start the application
 - visit https://localhost:3000
-- Click on a recently asked question and get a previously saved answer
-- Only [5 recently asked questions](https://github.com/vithushan19/book-report-app/blob/main/app/controllers/homepage_controller.rb#L13) are displayed on the fronent UI, but we are able to cache/save many more questions to the database
-- You can [delete](https://github.com/vithushan19/book-report-app/blob/main/app/controllers/homepage_controller.rb#L52) recently asked questions, which will remove it from the cache
+- Click on a recently asked question and get a previously cached answer
+- Ask new questions to save new questions to the cache
+- Only the 5 most recently asked questions are displayed on the fronent UI, but we are able to cache/save many more questions to the database
+- You can delete recently asked questions, which will remove it from the cache
 
 ## Data Layer
 
