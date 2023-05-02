@@ -1,6 +1,4 @@
-require 'json'
 require 'pdf-reader'
-
 
 # Define the path to the PDF file
 pdf_file_path = 'palace-of-illusions.pdf'
