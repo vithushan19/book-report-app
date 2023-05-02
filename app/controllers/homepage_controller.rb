@@ -9,8 +9,8 @@ class HomepageController < ApplicationController
   def get_recent_questions
     book_title = params[:book]
 
-    # Get the most recent 10 questions for the specified book
-    book_questions = BookQuestion.where(book_title: book_title).order(created_at: :desc).limit(10)
+    # Get the most recent 5 questions for the specified book
+    book_questions = BookQuestion.where(book_title: book_title).order(created_at: :desc).limit(5)
 
     # Return the questions
     render json: { message: "Success", data: book_questions}
@@ -49,4 +49,14 @@ class HomepageController < ApplicationController
 
   end
 
+  def delete_recent_question
+    book_title = params[:book]
+    question = params[:question]
+
+    book_question = BookQuestion.find_by(book_title: book_title, question: question)
+    book_question.destroy
+
+    render json: { message: "Success", data: "Deleted the question from the cache"}
+
+  end
 end

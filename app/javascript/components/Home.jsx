@@ -68,7 +68,19 @@ export default () => {
   };
 
   const handleDeleteRecentQuestionClick = (question) => {
-    setRecentQuestionsData(prev => prev.filter(q => q.question != question.question))
+    setIsLoading(true)
+    
+    fetch(`/homepage/delete_recent_question?question=${question.question}&book=${selectedBook}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((_) => { 
+        setRecentQuestionsData(prev => prev.filter(q => q.question != question.question))
+        setIsLoading(false)
+      })
   }
 
   return (
