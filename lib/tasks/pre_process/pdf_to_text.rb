@@ -1,7 +1,7 @@
 require 'pdf-reader'
 
 # Define the path to the PDF file
-pdf_file_path = 'palace-of-illusions.pdf'
+pdf_file_path = 'books/palace-of-illusions.pdf'
 
 # Initialize an empty string to store the extracted text
 extracted_text = ''
