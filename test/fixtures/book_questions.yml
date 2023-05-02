@@ -1,0 +1,21 @@
+# test/fixtures/book_questions.yml
+
+section_one:
+  book_title: "The Great Gatsby"
+  question: "Question 1"
+  answer: "Answer 1"
+
+question_two:
+  book_title: "The Great Gatsby"
+  question: "Question 2"
+  answer: "Answer 2"
+
+question_three:
+  book_title: "The Great Gatsby"
+  question: "Question 3"
+  answer: "Answer 3"
+
+question_four:
+  book_title: "The Great Gatsby"
+  question: "Question 4"
+  answer: "Answer 4"
