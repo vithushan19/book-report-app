@@ -4,7 +4,7 @@ require 'json'
 input_file_path = 'book-input.txt'
 input_text = File.read(input_file_path)
 
-result = OpenaiService.fetch_embeddings_for_book("Romeo and Juliet", input_text)
+result = OpenaiService.fetch_embeddings_for_book("Palace of Illusions", input_text)
 
 # Write embeddings to file
 File.open('output.txt', 'w') do |file|

@@ -1,6 +1,6 @@
 require 'json'
 
-questions = QuestionAnswerPair.all
+questions = BookQuestion.all
 
 questions.each do |question|
   puts question.question

@@ -1,2 +1,0 @@
-class QuestionAnswerPair < ApplicationRecord
-end

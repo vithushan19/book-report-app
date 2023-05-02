@@ -1,0 +1,2 @@
+class BookQuestion < ApplicationRecord
+end

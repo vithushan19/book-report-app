@@ -27,15 +27,15 @@ class OpenaiService
         puts "Total number of sections is #{sections.length}"
 
         # Fetch embeddings for each chunk
-        result = chunks.map.with_index { |chunk, index| 
+        result = sections.map.with_index { |section, index| 
             
             embedding = @@client.embeddings(
             parameters: {
                 model: "text-embedding-ada-002",
-                input: chunk
+                input: section
             })
 
-            { "title": book_title, "content": chunk, "embeddings": embedding["data"][0]["embedding"]}
+            { "title": book_title, "content": section, "embeddings": embedding["data"][0]["embedding"]}
          }
 
 
