@@ -9,17 +9,22 @@ class OpenaiService
 
     def self.fetch_embeddings_for_book(book_title, input_text)
       
-        chunk_size = 1950
+        section_size = 1950
         overlap = 20
 
-        # Split text into chunks
-        chunks = []
+        # Split text into sections
+        sections = []
         start = 0
         while start < input_text.length
-            chunk = input_text[start, chunk_size]
-            chunks << chunk
-            start += chunk_size - overlap
+            section = input_text[start, section_size]
+            sections << section
+            start += section_size - overlap
         end
+        puts "Calling OpenAI API to get embeddings for sections of #{book_title}"
+        puts "Each section has #{section_size} characters"
+        puts "The overlap between sections is #{overlap} characters"
+        puts "Total number of characters is #{input_text.length}"
+        puts "Total number of sections is #{sections.length}"
 
         # Fetch embeddings for each chunk
         result = chunks.map.with_index { |chunk, index| 
@@ -38,6 +43,8 @@ class OpenaiService
     end
 
     def self.fetch_embedding_for_question(text)
+        puts "Calling OpenAI API to get embeddings for question: #{text}"
+
         embedding = @@client.embeddings(
             parameters: {
                 model: "text-embedding-ada-002",
@@ -48,13 +55,15 @@ class OpenaiService
     end
 
     def self.fetch_completion_for_prompt(prompt)
+        puts "Calling OpenAI API to get completion for prompt: #{prompt}"
+
         response = @@client.completions(
             parameters: {
                 model: "text-davinci-001",
                 prompt: prompt,
                 max_tokens: 50
             })
-        response["choices"][0]["text"]
+        response["choices"][0]["text"].strip
     end
   end
   
