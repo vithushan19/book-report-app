@@ -61,19 +61,17 @@ class OpenaiService
         sections_sorted_by_semantic_relevance = book_sections_with_similarities.sort_by { |item| item["similarity"] }.reverse
 
         # Create a prompt using the top 3 most semantically relevant sections
-        prompt = "The following are relvant sections from a book called #{title} 
-        
+        prompt = 
+        "Here is a question about the book #{title} and some relevant sections. Provide a detailed answer to the question. Please keep your answers to three sentences maximum, and speak in complete sentences. Stop speaking once your point is made. If you do not know the answer then says 'I don't know the answer given the information from the book'
+        \n
+        Context that may be useful, pulled from #{title}:
+        \n
         #{sections_sorted_by_semantic_relevance[0]["content"]} 
         #{sections_sorted_by_semantic_relevance[1]["content"]} 
         #{sections_sorted_by_semantic_relevance[3]["content"]} 
-        
-        Here is a question about the book #{title} and the relevant sections. 
-        
+        \n
         Question: #{question} 
-        
-        Provide a detailed answer to the question. 
-        
-        If you do not know the answer then says 'I don't know the answer given the information from the book'"
+        \n"
 
         answer = OpenaiService::fetch_completion_for_prompt(prompt) # Fetch completion using OpenAI service
 
