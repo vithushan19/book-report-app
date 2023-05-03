@@ -71,15 +71,18 @@ class OpenaiService
 
         # Create a prompt using the top 3 most semantically relevant sections
         prompt = 
-        "Here is a question about the book #{book_title} and some relevant sections. Provide a detailed answer to the question. Please keep your answers to three sentences maximum, and speak in complete sentences. Stop speaking once your point is made. If you do not know the answer then says 'I don't know the answer given the information from the book'
+        "Here is a question about the book #{book_title} 
         \n
-        Context that may be useful, pulled from #{book_title}:
+        Question: #{question} 
+        \n
+        Provide a detailed answer to the question. Please keep your answers to three sentences maximum, and speak in complete sentences. Stop speaking once your point is made. If you do not know the answer then says 'I don't know the answer given the information from the book'
+        \n
+        Here is some context that may be useful to help answer the question from the book #{book_title}:
         \n
         #{sections_sorted_by_semantic_relevance[0]["content"]} 
         #{sections_sorted_by_semantic_relevance[1]["content"]} 
         #{sections_sorted_by_semantic_relevance[2]["content"]} 
         \n
-        Question: #{question} 
         \n"
 
         return prompt
