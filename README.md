@@ -12,6 +12,10 @@
 - [x] Get a text completion from Open AI to answer the question give the relevant sections of the book.
 - [x] Save questions and answers to the database
 
+## Technical Design
+
+[Notion Tech Spec](https://www.notion.so/Book-Report-Challenge-56800f558b7848dd83c0a24232ffd527?pvs=4)
+
 ## How to Run
 
 ### Step 1 Preprocess a PDF
