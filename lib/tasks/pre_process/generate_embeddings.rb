@@ -1,5 +1,5 @@
 # Arguments
-book_title = "Palace of Illusions"
+book_title = "Romeo and Juliet"
 input_file_path = 'book-input.txt'
 
 # Read the contents of the input file
