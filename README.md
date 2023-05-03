@@ -35,6 +35,7 @@
 - You can delete recently asked questions, which will remove it from the cache
 
 ## Data Layer
+<img width="911" alt="Screen Shot 2023-05-02 at 10 56 30 PM" src="https://user-images.githubusercontent.com/4795012/235824845-fef8d4bd-51dd-4feb-b365-dc33243e1b02.png">
 
 - [schema.rb](https://github.com/vithushan19/book-report-app/blob/main/db/schema.rb)
 - [migrations](https://github.com/vithushan19/book-report-app/tree/main/db/migrate)
@@ -48,6 +49,8 @@ Routes
 
 Controller
 [homepageController.rb](https://github.com/vithushan19/book-report-app/blob/main/app/controllers/homepage_controller.rb)
+
+<img width="915" alt="Screen Shot 2023-05-02 at 10 55 23 PM" src="https://user-images.githubusercontent.com/4795012/235824742-4d7d8d0b-9a59-406a-a4c8-a7d3747a966a.png">
 
 ### Homepage Controller Actions
 
@@ -63,6 +66,8 @@ Controller
 - [cosine_similarity](https://github.com/vithushan19/book-report-app/blob/main/app/services/openai_service.rb#L112)
 
 ## View Layer
+
+<img width="966" alt="Screen Shot 2023-05-02 at 10 54 42 PM" src="https://user-images.githubusercontent.com/4795012/235824656-42c45470-b215-41c5-b432-586096bc5b65.png">
 
 - [React Home componet](https://github.com/vithushan19/book-report-app/blob/main/app/javascript/components/Home.jsx)
 - [Recently asked questions](https://github.com/vithushan19/book-report-app/blob/main/app/javascript/components/Home.jsx#L109)
